@@ -18,10 +18,9 @@ void QuickSort1(){
     
 }
 // descobrir oque é o n no alg do professor
-void ShellSort(int vet[]){
+void ShellSort(int vet[],int n){
     int i,j,aux,k=1;
-    // remover depois
-    int n;
+    
 
     do{
         k = k*3 + 1;
@@ -61,7 +60,7 @@ void PesqSeq(int vet[],int tam,int chave){
 void BuscaBin(int vet[],int chave,int esq,int dir){
     int meio;
     if (esq < dir){
-        pritnf ("Chave não encontrada\n");
+        printf ("Chave não encontrada\n");
         return;
     }
     else{
@@ -74,4 +73,33 @@ void BuscaBin(int vet[],int chave,int esq,int dir){
             BuscaBin(vet,chave,esq,meio-1);
         else BuscaBin(vet,chave,meio+1,dir);
     }
+}
+
+void ImprimeParteVet(int vet[]){
+    int tam_prov = 25;
+    printf ("[%d]",vet[1]);
+    for (int i = 2; i < tam_prov; i++){
+        printf (" [%d]", vet[i]);
+    }
+    printf ("\n");
+}
+
+int main(){
+    int tam,esq,dir,chave,min,max;
+    int vet[1024];
+
+    //testes
+    tam = 1023;esq = 1;dir = 1023;min = 0,max = 2048;
+    printf ("Digite a chave a ser buscada no vetor: \n");
+    scanf ("%d", &chave);
+
+    GeraVetAleat(vet,tam,min,max);
+    BuscaBin(vet,chave,esq,dir);
+    PesqSeq(vet,tam,chave);
+    ImprimeParteVet(vet);
+    ShellSort(vet,tam);
+    ImprimeParteVet(vet);
+
+
+    return 0;
 }
