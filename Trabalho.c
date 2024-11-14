@@ -14,9 +14,40 @@ void GeraVetAleat(int vet[], int tam,int min, int max){
     return;
 }
 
-void QuickSort1(){
-    
+void QuickSort1(int vetor[], int n) {
+    if (n <= 1) {
+        return; /* Se o vetor tiver tamanho 0 ou 1 já está ordenado */
+    }
+
+    int menor = 0;
+    int maior = n - 1;
+
+    /* Escolhe o pivô como o último elemento */
+    int pivo = vetor[maior];
+    int i = menor - 1;
+
+    /* Particionamento */
+    for (int j = menor; j < maior; j++) {
+        if (vetor[j] < pivo) {
+            i++;
+            /* Troca vetor[i] e vetor[j] */
+            int temp = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = temp;
+        }
+    }
+
+    /* Coloca o pivô na posição correta */
+    int temp = vetor[i + 1];
+    vetor[i + 1] = vetor[maior];
+    vetor[maior] = temp;
+    int novoPivo = i + 1;
+
+    /* Recursividade*/ 
+    QuickSort1(vetor, novoPivo); /* Ordena a parte esquerda */
+    QuickSort1(vetor + novoPivo + 1, n - novoPivo - 1); /* Ordena a parte direita */
 }
+
 // descobrir oque é o n no alg do professor
 void ShellSort(int vet[],int n){
     int i,j,aux,k=1;
@@ -97,7 +128,7 @@ int main(){
     BuscaBin(vet,chave,esq,dir);
     PesqSeq(vet,tam,chave);
     ImprimeParteVet(vet);
-    ShellSort(vet,tam);
+    QuickSort1(vet,tam);
     ImprimeParteVet(vet);
 
 
