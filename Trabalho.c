@@ -8,10 +8,23 @@ int Aleat(int min, int max){
 
 void GeraVetAleat(int vet[], int tam,int min, int max){
     int i;
-    for (i = 0; i < tam; i++)
+    for (i = 1; i < tam; i++)
         vet[i] = Aleat(min,max);
     
     return;
+}
+
+void SelecSort(int vet[],int n){
+    int i,j,min,aux;
+    for (i = 1; i < n; i++){
+        min = i;
+        for (j = i + 1; j <= n; j++)
+            if (vet[j] < vet[min])
+                min = j;
+        aux = vet[min];
+        vet[min] = vet[i];
+        vet[i] = aux;
+    }
 }
 
 void QuickSort1(int vetor[], int n) {
@@ -19,7 +32,7 @@ void QuickSort1(int vetor[], int n) {
         return; /* Se o vetor tiver tamanho 0 ou 1 já está ordenado */
     }
 
-    int menor = 0;
+    int menor = 1;
     int maior = n - 1;
 
     /* Escolhe o pivô como o último elemento */
@@ -48,41 +61,99 @@ void QuickSort1(int vetor[], int n) {
     QuickSort1(vetor + novoPivo + 1, n - novoPivo - 1); /* Ordena a parte direita */
 }
 
-// descobrir oque é o n no alg do professor
-void ShellSort(int vet[],int n){
-    int i,j,aux,k=1;
-    
+void QuickSort2(int vetor[], int n) {
+    if (n <= 1) {
+        return; /* Se o vetor tiver tamanho 0 ou 1 já está ordenado */
+    }
 
-    do{
-        k = k*3 + 1;
-    } while (k <= n);
-    do{
-        k = k/3;
-        for (i = k+1; i <= n; i++){
-            aux = vet[i];
-            j=i;
-            while (vet[j-k]>aux && j > k){
-                vet[j] = vet[j-k];
-                j = j-k;
-                if (j <= k)
-                    break;
-            }
-            vet[i]=aux;
+    int menor = 1;
+    int maior = n - 1;
+
+    /* Escolhe o pivô como um numero aleatorio entre os indices do vetor */
+    int indice_aleat = Aleat(menor,maior);
+    int pivo = vetor[indice_aleat];
+    int i = menor - 1;
+
+    /* Particionamento */
+    for (int j = menor; j < maior; j++) {
+        if (vetor[j] < pivo) {
+            i++;
+            /* Troca vetor[i] e vetor[j] */
+            int temp = vetor[i];
+            vetor[i] = vetor[j];
+            vetor[j] = temp;
         }
-    }while (k != 1);
+    }
+
+    /* Coloca o pivô na posição correta */
+    int temp = vetor[i + 1];
+    vetor[i + 1] = vetor[maior];
+    vetor[maior] = temp;
+    int novoPivo = i + 1;
+
+    /* Recursividade*/ 
+    QuickSort2(vetor, novoPivo); /* Ordena a parte esquerda */
+    QuickSort2(vetor + novoPivo + 1, n - novoPivo - 1); /* Ordena a parte direita */
 }
 
+void shellSort1(int vetor[], int tamanho) {
 
+int atual=0;
+int proximo=0; 
+int valor=0;
+int salto = 1;
+    
+    while(salto < tamanho) {
+        salto = 3*salto+1;
+    }
 
+    while (salto > 0) {
+        for(atual = salto; atual < tamanho; atual++) {
+            valor = vetor[atual];
+            proximo = atual;
+            while (proximo > salto-1 && valor <= vetor[proximo-salto]) {
+                vetor[proximo] = vetor[proximo-salto];
+                proximo = proximo - salto;
+            }
+            vetor[proximo] = valor;
+        }
+        salto = salto/3;
+    }
+}
+
+void shellSort2(int vetor[], int tamanho) {
+
+    int atual = 0;
+    int proximo = 0;
+    int valor = 0;
+    int salto = 1;
+    
+    //usando a sequência de Hibbard
+    while (salto <= tamanho / 2) {
+        salto = salto * 2 + 1;
+    }
+    
+    while (salto > 0) {
+        for (atual = salto; atual < tamanho; atual++) {
+            valor = vetor[atual];
+            proximo = atual;
+            while (proximo >= salto && valor < vetor[proximo - salto]) {
+                vetor[proximo] = vetor[proximo - salto];
+                proximo = proximo - salto;
+            }
+            vetor[proximo] = valor;
+        }
+        salto = (salto - 1) / 2;
+    }
+}
 
 void PesqSeq(int vet[],int tam,int chave){
-    int i = 0;
-    while (tam > i){
-        if (vet[tam] == chave){
-            printf ("Chave %d encontrada na posição %d do vetor\n", vet[tam],tam);
-            return;
-        }
+    while (vet[tam] != chave)
         tam--;
+    
+    if (tam > 0){
+        printf ("Chave %d encontrada na posição %d do vetor\n", vet[tam],tam);
+        return;
     }
     printf ("Chave não encontrada\n");
     return;
@@ -123,11 +194,14 @@ int main(){
     tam = 1023;esq = 1;dir = 1023;min = 0,max = 2048;
     printf ("Digite a chave a ser buscada no vetor: \n");
     scanf ("%d", &chave);
+    vet[0] = 0;
 
     GeraVetAleat(vet,tam,min,max);
+    printf ("%d    ", vet[0]);
     PesqSeq(vet,tam,chave);
     ImprimeParteVet(vet);
-    QuickSort1(vet,tam);
+    QuickSort2(vet,tam);
+    printf ("%d    ", vet[0]);
     ImprimeParteVet(vet);
     BuscaBin(vet,chave,esq,dir);
 
