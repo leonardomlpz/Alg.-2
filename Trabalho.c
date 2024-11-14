@@ -90,7 +90,7 @@ void PesqSeq(int vet[],int tam,int chave){
 
 void BuscaBin(int vet[],int chave,int esq,int dir){
     int meio;
-    if (esq < dir){
+    if (esq > dir){
         printf ("Chave não encontrada\n");
         return;
     }
@@ -125,11 +125,11 @@ int main(){
     scanf ("%d", &chave);
 
     GeraVetAleat(vet,tam,min,max);
-    BuscaBin(vet,chave,esq,dir);
     PesqSeq(vet,tam,chave);
     ImprimeParteVet(vet);
     QuickSort1(vet,tam);
     ImprimeParteVet(vet);
+    BuscaBin(vet,chave,esq,dir);
 
 
     return 0;
