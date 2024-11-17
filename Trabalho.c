@@ -1,6 +1,8 @@
 // int vet[1024] numeros entre 0 e 2048 aleatorios, gerar a qualquer momento e imprimir uma pequena parte do vetor
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <math.h>
 
 int Aleat(int min, int max){
     return rand() % (max - min + 1) + min;
@@ -27,13 +29,14 @@ void SelecSort(int vet[],int n){
     }
 }
 
-void QuickSort1(int vetor[], int n) {
+void QuickSort1(int vetor[], int n,int *comp) {
     if (n <= 1) {
         return; /* Se o vetor tiver tamanho 0 ou 1 já está ordenado */
     }
 
-    int menor = 1;
+    int menor = 0;
     int maior = n - 1;
+    int comparacoes;
 
     /* Escolhe o pivô como o último elemento */
     int pivo = vetor[maior];
@@ -41,6 +44,7 @@ void QuickSort1(int vetor[], int n) {
 
     /* Particionamento */
     for (int j = menor; j < maior; j++) {
+        comparacoes++;
         if (vetor[j] < pivo) {
             i++;
             /* Troca vetor[i] e vetor[j] */
@@ -49,6 +53,7 @@ void QuickSort1(int vetor[], int n) {
             vetor[j] = temp;
         }
     }
+    *comp = comparacoes;
 
     /* Coloca o pivô na posição correta */
     int temp = vetor[i + 1];
@@ -57,8 +62,8 @@ void QuickSort1(int vetor[], int n) {
     int novoPivo = i + 1;
 
     /* Recursividade*/ 
-    QuickSort1(vetor, novoPivo); /* Ordena a parte esquerda */
-    QuickSort1(vetor + novoPivo + 1, n - novoPivo - 1); /* Ordena a parte direita */
+    QuickSort1(vetor, novoPivo,comp); /* Ordena a parte esquerda */
+    QuickSort1(vetor + novoPivo + 1, n - novoPivo - 1,comp); /* Ordena a parte direita */
 }
 
 void QuickSort2(int vetor[], int n) {
@@ -66,7 +71,7 @@ void QuickSort2(int vetor[], int n) {
         return; /* Se o vetor tiver tamanho 0 ou 1 já está ordenado */
     }
 
-    int menor = 1;
+    int menor = 0;
     int maior = n - 1;
 
     /* Escolhe o pivô como um numero aleatorio entre os indices do vetor */
@@ -96,12 +101,13 @@ void QuickSort2(int vetor[], int n) {
     QuickSort2(vetor + novoPivo + 1, n - novoPivo - 1); /* Ordena a parte direita */
 }
 
-void shellSort1(int vetor[], int tamanho) {
+void shellSort1(int vetor[], int tamanho,int *comp) {
 
 int atual=0;
 int proximo=0; 
 int valor=0;
 int salto = 1;
+int comparacoes = 0;
     
     while(salto < tamanho) {
         salto = 3*salto+1;
@@ -112,6 +118,7 @@ int salto = 1;
             valor = vetor[atual];
             proximo = atual;
             while (proximo > salto-1 && valor <= vetor[proximo-salto]) {
+                comparacoes++;
                 vetor[proximo] = vetor[proximo-salto];
                 proximo = proximo - salto;
             }
@@ -119,14 +126,16 @@ int salto = 1;
         }
         salto = salto/3;
     }
+    *comp = comparacoes;
 }
 
-void shellSort2(int vetor[], int tamanho) {
+void shellSort2(int vetor[], int tamanho,int *comp) {
 
     int atual = 0;
     int proximo = 0;
     int valor = 0;
     int salto = 1;
+    int comps = 0;
     
     //usando a sequência de Hibbard
     while (salto <= tamanho / 2) {
@@ -138,6 +147,7 @@ void shellSort2(int vetor[], int tamanho) {
             valor = vetor[atual];
             proximo = atual;
             while (proximo >= salto && valor < vetor[proximo - salto]) {
+                comps++;
                 vetor[proximo] = vetor[proximo - salto];
                 proximo = proximo - salto;
             }
@@ -145,6 +155,7 @@ void shellSort2(int vetor[], int tamanho) {
         }
         salto = (salto - 1) / 2;
     }
+    *comp = comps;
 }
 
 void PesqSeq(int vet[],int tam,int chave){
@@ -186,25 +197,97 @@ void ImprimeParteVet(int vet[]){
     printf ("\n");
 }
 
+void Principal(int vet[]){
+    int cont;
+    for (cont = 0; cont < 1000; cont++){
+        
+    }
+}
+
 int main(){
-    int tam,esq,dir,chave,min,max;
+    int tam,esq,dir,chave,min,max,num,qtde,contador,media;
+    double desvio,somatorio;
     int vet[1024];
+    int vet2[1000];
+
+    srand(time(NULL));
 
     //testes
-    tam = 1023;esq = 1;dir = 1023;min = 0,max = 2048;
-    printf ("Digite a chave a ser buscada no vetor: \n");
-    scanf ("%d", &chave);
-    vet[0] = 0;
+    tam = 1024;esq = 1;dir = 1023;min = 0,max = 2048;
 
-    GeraVetAleat(vet,tam,min,max);
-    printf ("%d    ", vet[0]);
-    PesqSeq(vet,tam,chave);
-    ImprimeParteVet(vet);
-    QuickSort2(vet,tam);
-    printf ("%d    ", vet[0]);
-    ImprimeParteVet(vet);
-    BuscaBin(vet,chave,esq,dir);
+    printf ("Digite 1 para começar\n");
+    scanf ("%d", &num);
 
+    printf ("Digite 0 para encerrar o programa\n");
+    printf ("Digite 1 para gerar um vetor de num aleatorios\n");
+    printf ("Digite 2 para imprimir uma parte do vetor\n");
+    printf ("Digite 3 para ordenar o vetor utilizando o primeiro QuickSort\n");
+    printf ("Digite 4 para ordenar o vetor utilizando o segundo QuickSort\n");
+    printf ("Digite 5 para ordenar o vetor utilizando o primeiro ShellSort\n");
+    printf ("Digite 6 para ordenar o vetor utilizando o segundo ShellSort\n");
+    printf ("Digite 7 para ordenar o vetor utilizando o SelecSort\n");
+    printf ("Digite 10 para realizar o calculo de media e desvio padrao\n");
+    while (num != 0){
+        
+        scanf ("%d", &num);
+
+        switch (num)
+        {
+        case 1:
+            GeraVetAleat(vet,tam,min,max);
+            break;
+        case 2:
+            ImprimeParteVet(vet);
+            break;
+        case 3:
+            QuickSort1(vet,tam,&qtde);
+            printf ("qtde :%d\n", qtde);
+            break;
+        case 4:
+            QuickSort2(vet,tam);
+            break;
+        case 5:
+            shellSort1(vet,tam,&qtde);
+            printf ("qtde :%d\n", qtde);
+            break;
+        case 6:
+            shellSort2(vet,tam,&qtde);
+            printf ("qtde :%d\n", qtde);
+            break;
+        case 7:
+            SelecSort(vet,tam);
+            break;
+        case 8:
+            printf ("Digite a chave a ser buscada no vetor: \n");
+            scanf ("%d", &chave);
+            PesqSeq(vet,tam,chave);
+            break;
+        case 9:
+            printf ("Digite a chave a ser buscada no vetor: \n");
+            scanf ("%d", &chave);
+            BuscaBin(vet,chave,1,dir);
+            break;
+        case 10:
+            qtde = 0;
+            for (int i = 0; i < 1000; i++){
+                GeraVetAleat(vet,tam,min,max);
+                QuickSort1(vet,tam,&qtde);
+                vet2[i] = qtde;
+                contador += qtde;
+            }
+            printf ("Quantidade de comparacoes na ordenacao 1000x: %d\n", contador);
+            media = contador/tam;//media
+            for (int i = 0; i < 1000; i++){
+                somatorio += (vet2[i] - media) * (vet2[i] - media);
+            }
+            somatorio = somatorio/1000;
+            desvio = sqrt(somatorio);
+            printf ("Desvio %f\n", desvio);
+
+        default:
+            break;
+        }
+    } 
 
     return 0;
 }
