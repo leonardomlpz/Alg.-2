@@ -276,13 +276,13 @@ int main(){
                 contador += qtde;
             }
             printf ("Quantidade de comparacoes na ordenacao 1000x: %d\n", contador);
-            media = contador/tam;//media
             for (int i = 0; i < 1000; i++){
                 somatorio += (vet2[i] - media) * (vet2[i] - media);
             }
+            media = contador/tam;//media
             somatorio = somatorio/1000;
             desvio = sqrt(somatorio);
-            printf ("Desvio %f\n", desvio);
+            printf ("Desvio %.2f\n", desvio);
 
         default:
             break;
