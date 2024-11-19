@@ -29,7 +29,7 @@ void SelecSort(int vet[],int n){
     }
 }
 
-void QuickSort1(int vetor[], int n,long long int *comp) {
+void QuickSort1(int vetor[], int n, int *comp) {
     if (n <= 1) {
         return; /* Se o vetor tiver tamanho 0 ou 1 já está ordenado */
     }
@@ -64,16 +64,16 @@ void QuickSort1(int vetor[], int n,long long int *comp) {
     QuickSort1(vetor + novoPivo + 1, n - novoPivo - 1,comp); /* Ordena a parte direita */
 }
 
-void QuickSort2(int vetor[], int n, long long int *comp, int *troca) {
+void QuickSort2(int vetor[], int n, int *comp, int *troca) {
     if (n <= 1) {
-        return; /* Se o vetor tiver tamanho 0 ou 1 já está ordenado */
+        return;
     }
 
     int menor = 0;
     int maior = n - 1;
 
     /* Escolhe o pivô aleatoriamente */
-    int pivotIndex = rand() % n; // Gera um índice aleatório
+    int pivotIndex = rand() % n;
     int temp = vetor[pivotIndex];
     vetor[pivotIndex] = vetor[maior];
     vetor[maior] = temp;
@@ -106,7 +106,7 @@ void QuickSort2(int vetor[], int n, long long int *comp, int *troca) {
     QuickSort2(vetor + novoPivo + 1, n - novoPivo - 1, comp, troca); /* Ordena a parte direita */
 }
 
-void shellSort1(int vetor[], int tamanho,long long int *comp,int *troca) {
+void shellSort1(int vetor[], int tamanho, int *comp,int *troca) {
 
 int atual=0;
 int proximo=0; 
@@ -136,7 +136,7 @@ int comparacoes = 0;
     *comp = comparacoes;
 }
 
-void shellSort2(int vetor[], int tamanho,long long int *comp) {
+void shellSort2(int vetor[], int tamanho, int *comp) {
 
     int atual = 0;
     int proximo = 0;

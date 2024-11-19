@@ -9,8 +9,9 @@ int main(){
     int tam,esq,dir,chave,min,max,num,media,trocas;
     double desvio,somatorio;
     int vet[1024];
+    int vet2[1000];
 
-    long long int qtde = 0, contador = 0, vet2[1000];
+    int qtde = 0, contador = 0;
 
     srand(time(NULL));
 
@@ -81,12 +82,13 @@ int main(){
             for (int i = 0; i < 1000; i++){
                 qtde = 0;
                 GeraVetAleat(vet,tam,min,max);
-                QuickSort2(vet,tam,&qtde,&trocas);
+                shellSort1(vet,tam,&qtde,&trocas);
                 vet2[i] = qtde;
                 contador = contador + qtde;
             }
             printf ("Quantidade de comparacoes na ordenacao 1000x: %lld\n", contador);
-            media = contador/1000;//media
+            //media da quantidade de comparacoes
+            media = contador/1000;
             printf ("media = %d\n", media);
             for (int i = 0; i < 1000; i++){
                 somatorio = somatorio + (pow(vet2[i] - media, 2));
@@ -94,10 +96,11 @@ int main(){
 
             printf ("Qtde Trocas =%d\n", trocas/1000);
 
-            printf ("%lld %lld %lld\n", vet2[0],vet2[1],vet2[2]);
-
+            printf ("%d %d %d\n", vet2[0],vet2[1],vet2[2]);
+            //somatorio divido pela quantidade de repeticao do for
             somatorio = somatorio/1000;
             printf ("somatorio = %.2f\n", somatorio);
+            //desvio padrao
             desvio = sqrt(somatorio);
             printf ("Desvio %.2f\n", desvio);
 

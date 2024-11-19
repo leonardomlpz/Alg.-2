@@ -7,13 +7,13 @@ void GeraVetAleat(int vet[], int tam,int min, int max);
 
 void SelecSort(int vet[],int n);
 
-void QuickSort1(int vetor[], int n,long long int *comp);
+void QuickSort1(int vetor[], int n, int *comp);
 
-void QuickSort2(int vetor[], int n, long long int *comp, int *troca);
+void QuickSort2(int vetor[], int n,  int *comp, int *troca);
 
-void shellSort1(int vetor[], int tamanho,long long int *comp,int *troca);
+void shellSort1(int vetor[], int tamanho, int *comp,int *troca);
 
-void shellSort2(int vetor[], int tamanho,long long int *comp);
+void shellSort2(int vetor[], int tamanho, int *comp);
 
 void PesqSeq(int vet[],int tam,int chave);
 
