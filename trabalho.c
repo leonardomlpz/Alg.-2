@@ -90,7 +90,6 @@ int main(){
             mediacompSegundoQuick(vet,vet2,&media);
             desvio_padrao(vet2,media);
             media = 0;
-
         default:
             break;
         }
