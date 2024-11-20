@@ -161,6 +161,8 @@ void shellSort2(int vetor[], int tamanho, int *comp, int *troca) {
                 comps++;
                 vetor[proximo] = vetor[proximo - salto];
                 proximo = proximo - salto;
+
+                *troca = *troca + 1;
             }
             vetor[proximo] = valor;
         }
