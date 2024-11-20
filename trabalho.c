@@ -37,29 +37,29 @@ int main(){
         switch (num)
         {
         case 1:
-            GeraVetAleat(vet,tam,min,max);
+            GeraVetAleat(vet,tam);
             break;
         case 2:
             ImprimeParteVet(vet);
             break;
         case 3:
-            QuickSort1(vet,tam,&qtde);
-            printf ("qtde :%lld\n", qtde);
+            QuickSort1(vet,tam,&qtde,&trocas);
+            printf ("qtde :%d\n", qtde);
             qtde = 0;
             break;
         case 4:
             trocas = 0;
-            GeraVetAleat(vet,tam,min,max);
+            GeraVetAleat(vet,tam);
             QuickSort2(vet,tam,&qtde,&trocas);
             printf ("Qtde Trocas =%d\n", trocas);
             break;
         case 5:
             shellSort1(vet,tam,&qtde,&trocas);
-            printf ("qtde :%lld\n", qtde);
+            printf ("qtde :%d\n", qtde);
             break;
         case 6:
-            shellSort2(vet,tam,&qtde);
-            printf ("qtde :%lld\n", qtde);
+            shellSort2(vet,tam,&qtde,&trocas);
+            printf ("qtde :%d\n", qtde);
             break;
         case 7:
             SelecSort(vet,tam);
@@ -75,34 +75,21 @@ int main(){
             BuscaBin(vet,chave,1,dir);
             break;
         case 10:
-            qtde = 0;
-            contador = 0;
-            trocas = 0;
-            somatorio = 0;
-            for (int i = 0; i < 1000; i++){
-                qtde = 0;
-                GeraVetAleat(vet,tam,min,max);
-                shellSort1(vet,tam,&qtde,&trocas);
-                vet2[i] = qtde;
-                contador = contador + qtde;
-            }
-            printf ("Quantidade de comparacoes na ordenacao 1000x: %lld\n", contador);
-            //media da quantidade de comparacoes
-            media = contador/1000;
-            printf ("media = %d\n", media);
-            for (int i = 0; i < 1000; i++){
-                somatorio = somatorio + (pow(vet2[i] - media, 2));
-            }
+            mediacompPrimeiroShell(vet,vet2,&media);
+            desvio_padrao(vet2,media);
+            media = 0;
 
-            printf ("Qtde Trocas =%d\n", trocas/1000);
+            mediacompSegundoShell(vet,vet2,&media);
+            desvio_padrao(vet2,media);
+            media = 0;
 
-            printf ("%d %d %d\n", vet2[0],vet2[1],vet2[2]);
-            //somatorio divido pela quantidade de repeticao do for
-            somatorio = somatorio/1000;
-            printf ("somatorio = %.2f\n", somatorio);
-            //desvio padrao
-            desvio = sqrt(somatorio);
-            printf ("Desvio %.2f\n", desvio);
+            mediacompPrimeiroQuick(vet,vet2,&media);
+            desvio_padrao(vet2,media);
+            media = 0;
+
+            mediacompSegundoQuick(vet,vet2,&media);
+            desvio_padrao(vet2,media);
+            media = 0;
 
         default:
             break;

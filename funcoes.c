@@ -8,8 +8,10 @@ int Aleat(int min, int max){
     return rand() % (max - min + 1) + min;
 }
 
-void GeraVetAleat(int vet[], int tam,int min, int max){
+void GeraVetAleat(int vet[], int tam){
     int i;
+    int min = 0;
+    int max = 2048;
     for (i = 1; i < tam; i++)
         vet[i] = Aleat(min,max);
     
@@ -29,7 +31,7 @@ void SelecSort(int vet[],int n){
     }
 }
 
-void QuickSort1(int vetor[], int n, int *comp) {
+void QuickSort1(int vetor[], int n, int *comp, int *trocas) {
     if (n <= 1) {
         return; /* Se o vetor tiver tamanho 0 ou 1 já está ordenado */
     }
@@ -47,6 +49,7 @@ void QuickSort1(int vetor[], int n, int *comp) {
         if (vetor[j] < pivo) {
             i++;
             /* Troca vetor[i] e vetor[j] */
+            *trocas = *trocas + 1;
             int temp = vetor[i];
             vetor[i] = vetor[j];
             vetor[j] = temp;
@@ -54,14 +57,15 @@ void QuickSort1(int vetor[], int n, int *comp) {
     }
 
     /* Coloca o pivô na posição correta */
+    *trocas = *trocas + 1;
     int temp = vetor[i + 1];
     vetor[i + 1] = vetor[maior];
     vetor[maior] = temp;
     int novoPivo = i + 1;
 
     /* Recursividade*/ 
-    QuickSort1(vetor, novoPivo,comp); /* Ordena a parte esquerda */
-    QuickSort1(vetor + novoPivo + 1, n - novoPivo - 1,comp); /* Ordena a parte direita */
+    QuickSort1(vetor, novoPivo,comp,trocas); /* Ordena a parte esquerda */
+    QuickSort1(vetor + novoPivo + 1, n - novoPivo - 1,comp,trocas); /* Ordena a parte direita */
 }
 
 void QuickSort2(int vetor[], int n, int *comp, int *troca) {
@@ -136,7 +140,7 @@ int comparacoes = 0;
     *comp = comparacoes;
 }
 
-void shellSort2(int vetor[], int tamanho, int *comp) {
+void shellSort2(int vetor[], int tamanho, int *comp, int *troca) {
 
     int atual = 0;
     int proximo = 0;
@@ -202,4 +206,121 @@ void ImprimeParteVet(int vet[]){
         printf (" [%d]", vet[i]);
     }
     printf ("\n");
+}
+
+void Desvio_media(int vet[], int vet2[]){
+    int qtde = 0;
+    int contador = 0;
+    int trocas = 0;
+    double somatorio = 0;
+    int tam = 1024;
+    int min = 0;
+    int max = 2048;
+    int media;
+    double desvio;
+    for (int i = 0; i < 1000; i++){
+        qtde = 0;
+        GeraVetAleat(vet,tam);
+        shellSort1(vet,tam,&qtde,&trocas);
+        vet2[i] = qtde;
+        contador = contador + qtde;
+    }
+    printf ("Quantidade de comparacoes na ordenacao 1000x: %d\n", contador);
+    //media da quantidade de comparacoes
+    media = contador/1000;
+    printf ("media = %d\n", media);
+    for (int i = 0; i < 1000; i++){
+        somatorio = somatorio + (pow(vet2[i] - media, 2));
+    }
+
+    printf ("Qtde Trocas =%d\n", trocas/1000);
+
+    printf ("%d %d %d\n", vet2[0],vet2[1],vet2[2]);
+    //somatorio divido pela quantidade de repeticao do for
+    somatorio = somatorio/1000;
+    printf ("somatorio = %.2f\n", somatorio);
+    //desvio padrao
+    desvio = sqrt(somatorio);
+    printf ("Desvio %.2f\n", desvio);
+}
+
+void mediacompPrimeiroShell(int vet[], int vet2[], int *media){
+    int qtde = 0;
+    int trocas = 0;
+    int tam = 1024;
+    int contador;
+    for (int i = 0; i < 1000; i++){
+        qtde = 0;
+        GeraVetAleat(vet,tam);
+        shellSort1(vet,tam,&qtde,&trocas);
+        vet2[i] = qtde;
+        contador = contador + qtde;
+    }
+    *media = trocas/1000;
+    printf ("Media de comparacoes do primeiro ShellSort: %d\n", contador/1000);
+    printf ("Media da quantidade de trocas: %d\n", *media);
+}
+
+void mediacompSegundoShell(int vet[], int vet2[], int *media){
+    int qtde = 0;
+    int trocas = 0;
+    int tam = 1024;
+    int contador;
+    for (int i = 0; i < 1000; i++){
+        qtde = 0;
+        GeraVetAleat(vet,tam);
+        shellSort2(vet,tam,&qtde,&trocas);
+        vet2[i] = qtde;
+        contador = contador + qtde;
+    }
+    *media = contador/1000;
+    printf ("Media de comparacoes do segundo ShellSort: %d\n", contador/1000);
+    printf ("Media da quantidade de trocas: %d\n", trocas/1000);
+}
+
+void mediacompPrimeiroQuick(int vet[], int vet2[], int *media){
+    int qtde = 0;
+    int trocas = 0;
+    int tam = 1024;
+    int contador;
+    for (int i = 0; i < 1000; i++){
+        qtde = 0;
+        GeraVetAleat(vet,tam);
+        QuickSort1(vet,tam,&qtde,&trocas);
+        vet2[i] = qtde;
+        contador = contador + qtde;
+    }
+    *media = contador/1000;
+    printf ("Media de comparacoes do primeiro QuickSort: %d\n", contador/1000);
+    printf ("Media da quantidade de trocas: %d\n", trocas/1000);
+}
+
+void mediacompSegundoQuick(int vet[], int vet2[], int *media){
+    int qtde = 0;
+    int trocas = 0;
+    int tam = 1024;
+    int contador;
+    for (int i = 0; i < 1000; i++){
+        qtde = 0;
+        GeraVetAleat(vet,tam);
+        QuickSort2(vet,tam,&qtde,&trocas);
+        vet2[i] = qtde;
+        contador = contador + qtde;
+    }
+    *media = contador/1000;
+    printf ("Media de comparacoes do segundo QuickSort: %d\n", contador/1000);
+    printf ("Media da quantidade de trocas: %d\n", trocas/1000);
+}
+
+void desvio_padrao(int vet2[], int media){
+    double somatorio = 0;
+    double desvio = 0;
+    for (int i = 0; i < 1000; i++){
+        somatorio = somatorio + (pow(vet2[i] - media, 2));
+    }
+    //somatorio dividido pela quantidade de repeticao do for
+    somatorio /= 1000;
+    desvio = sqrt(somatorio);
+
+    printf ("Desvio padrao: %.2f\n\n", desvio);
 }
