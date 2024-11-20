@@ -250,7 +250,7 @@ void mediacompPrimeiroShell(int vet[], int vet2[], int *media){
     int qtde = 0;
     int trocas = 0;
     int tam = 1024;
-    int contador;
+    int contador = 0;
     for (int i = 0; i < 1000; i++){
         qtde = 0;
         GeraVetAleat(vet,tam);
@@ -267,7 +267,7 @@ void mediacompSegundoShell(int vet[], int vet2[], int *media){
     int qtde = 0;
     int trocas = 0;
     int tam = 1024;
-    int contador;
+    int contador = 0;
     for (int i = 0; i < 1000; i++){
         qtde = 0;
         GeraVetAleat(vet,tam);
@@ -284,7 +284,7 @@ void mediacompPrimeiroQuick(int vet[], int vet2[], int *media){
     int qtde = 0;
     int trocas = 0;
     int tam = 1024;
-    int contador;
+    int contador = 0;
     for (int i = 0; i < 1000; i++){
         qtde = 0;
         GeraVetAleat(vet,tam);
@@ -301,7 +301,7 @@ void mediacompSegundoQuick(int vet[], int vet2[], int *media){
     int qtde = 0;
     int trocas = 0;
     int tam = 1024;
-    int contador;
+    int contador = 0;
     for (int i = 0; i < 1000; i++){
         qtde = 0;
         GeraVetAleat(vet,tam);
