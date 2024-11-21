@@ -172,9 +172,10 @@ void shellSort2(int vetor[], int tamanho, int *comp, int *troca) {
 }
 
 void PesqSeq(int vet[],int tam,int chave){
+    vet[0]= chave;
     while (vet[tam] != chave)
         tam--;
-    
+
     if (tam > 0){
         printf ("Chave %d encontrada na posição %d do vetor\n", vet[tam],tam);
         return;
@@ -208,42 +209,6 @@ void ImprimeParteVet(int vet[]){
         printf (" [%d]", vet[i]);
     }
     printf ("\n");
-}
-
-void Desvio_media(int vet[], int vet2[]){
-    int qtde = 0;
-    int contador = 0;
-    int trocas = 0;
-    double somatorio = 0;
-    int tam = 1024;
-    int min = 0;
-    int max = 2048;
-    int media;
-    double desvio;
-    for (int i = 0; i < 1000; i++){
-        qtde = 0;
-        GeraVetAleat(vet,tam);
-        shellSort1(vet,tam,&qtde,&trocas);
-        vet2[i] = qtde;
-        contador = contador + qtde;
-    }
-    printf ("Quantidade de comparacoes na ordenacao 1000x: %d\n", contador);
-    //media da quantidade de comparacoes
-    media = contador/1000;
-    printf ("media = %d\n", media);
-    for (int i = 0; i < 1000; i++){
-        somatorio = somatorio + (pow(vet2[i] - media, 2));
-    }
-
-    printf ("Qtde Trocas =%d\n", trocas/1000);
-
-    printf ("%d %d %d\n", vet2[0],vet2[1],vet2[2]);
-    //somatorio divido pela quantidade de repeticao do for
-    somatorio = somatorio/1000;
-    printf ("somatorio = %.2f\n", somatorio);
-    //desvio padrao
-    desvio = sqrt(somatorio);
-    printf ("Desvio %.2f\n", desvio);
 }
 
 void mediacompPrimeiroShell(int vet[], int vet2[], int *media){
@@ -324,5 +289,5 @@ void desvio_padrao(int vet2[], int media){
     somatorio /= 1000;
     desvio = sqrt(somatorio);
 
-    printf ("Desvio padrao: %.2f\n\n", desvio);
+    printf ("Desvio padrao: %.2f\n", desvio);
 }

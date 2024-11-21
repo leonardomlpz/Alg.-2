@@ -29,6 +29,8 @@ int main(){
     printf ("Digite 5 para ordenar o vetor utilizando o primeiro ShellSort\n");
     printf ("Digite 6 para ordenar o vetor utilizando o segundo ShellSort\n");
     printf ("Digite 7 para ordenar o vetor utilizando o SelecSort\n");
+    printf ("Digite 8 para realizar uma pesquisa sequencial no vetor\n");
+    printf ("Digite 9 para realizar uma busca binaria no vetor\n");
     printf ("Digite 10 para realizar o calculo de media e desvio padrao\n");
     while (num != 0){
         
@@ -44,22 +46,22 @@ int main(){
             break;
         case 3:
             QuickSort1(vet,tam,&qtde,&trocas);
-            printf ("qtde :%d\n", qtde);
+            printf ("Quantidade de trocas: %d\n", qtde);
             qtde = 0;
             break;
         case 4:
             trocas = 0;
             GeraVetAleat(vet,tam);
             QuickSort2(vet,tam,&qtde,&trocas);
-            printf ("Qtde Trocas =%d\n", trocas);
+            printf ("Quantidade de trocas: %d\n", trocas);
             break;
         case 5:
             shellSort1(vet,tam,&qtde,&trocas);
-            printf ("qtde :%d\n", qtde);
+            printf ("Quantidade de trocas: %d\n", qtde);
             break;
         case 6:
             shellSort2(vet,tam,&qtde,&trocas);
-            printf ("qtde :%d\n", qtde);
+            printf ("Quantidade de trocas: %d\n", qtde);
             break;
         case 7:
             SelecSort(vet,tam);
@@ -78,15 +80,15 @@ int main(){
             mediacompPrimeiroShell(vet,vet2,&media);
             desvio_padrao(vet2,media);
             media = 0;
-
+            printf ("\n");
             mediacompSegundoShell(vet,vet2,&media);
             desvio_padrao(vet2,media);
             media = 0;
-
+            printf ("\n");
             mediacompPrimeiroQuick(vet,vet2,&media);
             desvio_padrao(vet2,media);
             media = 0;
-
+            printf ("\n");
             mediacompSegundoQuick(vet,vet2,&media);
             desvio_padrao(vet2,media);
             media = 0;
