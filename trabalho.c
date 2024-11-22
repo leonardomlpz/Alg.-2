@@ -54,17 +54,25 @@ int main(){
             GeraVetAleat(vet,tam);
             QuickSort2(vet,tam,&qtde,&trocas);
             printf ("Quantidade de trocas: %d\n", trocas);
+            trocas = 0;
+            qtde = 0;
             break;
         case 5:
             shellSort1(vet,tam,&qtde,&trocas);
-            printf ("Quantidade de trocas: %d\n", qtde);
+            printf ("Quantidade de trocas: %d\n", trocas);
+            trocas = 0;
+            qtde = 0;
             break;
         case 6:
             shellSort2(vet,tam,&qtde,&trocas);
-            printf ("Quantidade de trocas: %d\n", qtde);
+            printf ("Quantidade de trocas: %d\n", trocas);
+            trocas = 0;
+            qtde = 0;
             break;
         case 7:
-            SelecSort(vet,tam);
+            SelecSort(vet,tam,&trocas);
+            printf ("Quantidade de trocas: %d\n", trocas);
+            trocas = 0;
             break;
         case 8:
             printf ("Digite a chave a ser buscada no vetor: \n");

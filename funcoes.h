@@ -5,7 +5,7 @@ int Aleat(int min, int max);
 
 void GeraVetAleat(int vet[], int tam);
 
-void SelecSort(int vet[],int n);
+void SelecSort(int vet[],int n,int *trocas);
 
 void QuickSort1(int vetor[], int n, int *comp, int *trocas);
 

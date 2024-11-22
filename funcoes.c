@@ -18,13 +18,14 @@ void GeraVetAleat(int vet[], int tam){
     return;
 }
 
-void SelecSort(int vet[],int n){
+void SelecSort(int vet[],int n, int *trocas){
     int i,j,min,aux;
     for (i = 1; i < n; i++){
         min = i;
         for (j = i + 1; j <= n; j++)
             if (vet[j] < vet[min])
                 min = j;
+        *trocas = *trocas + 1;
         aux = vet[min];
         vet[min] = vet[i];
         vet[i] = aux;
